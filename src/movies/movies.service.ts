@@ -3,6 +3,7 @@ import { Movie } from './entities/movie.entity';
 
 @Injectable()
 export class MoviesService {
+    [x: string]: any;
     private movies: Movie[] = [];
 
     getAll(): Movie[] {
@@ -11,5 +12,18 @@ export class MoviesService {
 
     getOne(id: String):Movie {
         return this.movies.find(movie => movie.id === +id);
+    }
+
+    deleteOne(id:String):boolean {
+        this.movies.filter(movie => movie.id !== +id);
+        return true;
+    }
+
+    create(movieData){
+        this.movies.push({
+            id:this.movies.length+1,
+            ...movieData,
+        });
+    
     }
 }

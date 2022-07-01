@@ -26,10 +26,10 @@ export class MoviesController {
         return `We are searching for a movie made after: ${searchingYear}`;
     }
 
-    @Get('/:id')
-    getOne(@Param('id') movieId:string){
+    @Get(':id')
+    getOne(@Param('id') movieId:string) :Movie{
         // @ Param => url에 있는 id를 파라미터로 원해!
-        return `This will return one movie with the id: ${movieId}`;
+        return this.moviesService.getOne(movieId);
     }
 
     @Post()
@@ -37,13 +37,12 @@ export class MoviesController {
         console.log(movieData);
         // const name = movieData.get('name');
         // console.log(name);
-        return movieData;
-        // return 'This will create a movie';
+        return this.moviesService.create(movieData);
     }
 
     @Delete('/:id')
     remove(@Param('id') movieId:string){
-        return `This will delete a movie:${movieId}`;
+        return this.moviesService.deleteOne(movieId);
     }
 
     // update 대신 patch를 쓰는 이유 ? update는 모든 리소스가 업데이트 되기때문
